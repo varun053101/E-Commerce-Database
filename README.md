@@ -1,4 +1,4 @@
-**I started with a simple request: create 5 realistic synthetic e-commerce CSV files using prompt => **
+#I started with a simple request: create 5 realistic synthetic e-commerce CSV files using prompt => 
 
 
 System: You are an expert data engineer. Produce reproducible synthetic datasets and code that writes them to CSV files.
@@ -38,7 +38,7 @@ Return: Only the full Python script content (no extra commentary), ready to save
 
 
 
-**Next, I asked for a SQLite ingestion script. I specified with the prompt => **
+#Next, I asked for a SQLite ingestion script. I specified with the prompt =>
 
 
 System: You are a senior backend engineer. Produce secure, production-minded ingestion code.
@@ -94,7 +94,7 @@ Write a Python script `scripts/ingest_to_sqlite.py` that:
 
 Return: Only the full Python script content for `scripts/ingest_to_sqlite.py` (no extra commentary). Keep it runnable with Python 3.10+.
 
-**And later i gave some rules to cursor which i got from "cursor.dictionary" for using industry standard coding**
+# And later i gave some rules to cursor which i got from "cursor.dictionary" for using industry standard coding
 
 ---
 alwaysApply: true
