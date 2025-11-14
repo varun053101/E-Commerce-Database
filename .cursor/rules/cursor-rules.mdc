@@ -1,0 +1,44 @@
+---
+alwaysApply: true
+---
+# Cursor Rules — Python Data & SQLite (Detailed)
+
+Project scope & behavior
+- Primary mission: generate synthetic e-commerce CSVs, ingest into a local SQLite DB, and produce analytic SQL queries and tests.
+- Language/runtime: Python 3.10+ (synchronous code acceptable).
+- Local-only: Do not call external network services, APIs, or remote databases. If a dependency must be fetched, open a PR and request human approval.
+
+Data generation & reproducibility
+- All synthetic data must be deterministic using seed=42 (use random.seed and faker.seed_instance(42)).
+- CSVs must include header rows and consistent column types.
+- File paths: write CSVs to /data and scripts to /scripts.
+- Always validate foreign key references (customers ↔ orders ↔ order_items, products referenced exist).
+
+SQLite & ingestion
+- Use SQLite at db/ecommerce.db; set `PRAGMA foreign_keys = ON` before writes.
+- DDL must use explicit types (INTEGER, TEXT, REAL, NUMERIC, DATETIME) and define PRIMARY KEYs and FOREIGN KEYs.
+- Create indexes on join/filter columns (e.g., orders.customer_id, order_items.order_id, products.category).
+- When inconsistencies are detected (e.g., order.total != SUM(order_items)), correct them in a transaction and report counts of corrections.
+
+Code quality & safety
+- Prefer full, runnable scripts (single-file runnable examples) rather than fragments.
+- Add docstrings, inline comments, and a short usage help (e.g., `--dry-run` flag).
+- Run or include pytest tests for non-trivial code; tests go under /tests.
+- Do not write or commit secrets, `.env`, or credentials. Replace with placeholders and document how to set in local dev.
+
+Git & CI
+- Create branches `agent/<task>-<timestamp>`; do not push to main without maintainer approval.
+- Any change to CI, workflows, or dependency lists must be approved and documented in the PR.
+
+Outputs & logging
+- Avoid printing entire datasets; print concise summaries (row counts, top categories, mismatch counts).
+- Redact any string that looks like a secret before committing or logging.
+- Include a `README.md` describing how to run scripts and tests locally.
+
+Error handling & escalation
+- If a task requires credentials, deployment, or irreversible changes, stop and create `proposals/<task>-proposal.md` detailing the required approval.
+- If ambiguous requirements exist, create a short proposal PR rather than guessing.
+
+Agent UX
+- Use clear commit messages and small atomic commits.
+- Attach test results to PR description and tag `varun-dr` (or project maintainer) for review.
